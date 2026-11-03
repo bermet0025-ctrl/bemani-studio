@@ -1,0 +1,408 @@
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bemani Studio | Salon de Beauté</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+ --bg:#f8f5ef;--cream:#eee7da;--dark:#292a24;
+ --gold:#b39463;--olive:#74765b;--white:#fff;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--dark);font-family:'DM Sans',sans-serif}
+a{text-decoration:none;color:inherit}
+button{cursor:pointer;font:inherit}
+nav{position:sticky;top:0;z-index:10;background:#f8f5eff2;
+ display:flex;justify-content:space-between;align-items:center;
+ padding:17px 7%;border-bottom:1px solid #e8e1d5}
+.logo{font:25px 'Playfair Display',serif;letter-spacing:2px}
+.logo small{display:block;font:9px 'DM Sans';letter-spacing:4px;text-align:center}
+.links{display:flex;gap:23px;font-size:13px}
+.links a:hover{color:var(--gold)}
+.btn{display:inline-block;background:var(--dark);color:white;
+ border:0;padding:14px 24px;border-radius:3px;transition:.2s}
+.btn:hover{background:var(--gold);transform:translateY(-2px)}
+.hero{min-height:650px;display:flex;align-items:center;padding:80px 9%;
+ background:linear-gradient(90deg,#171712c9,#17171222),
+ url('https://images.unsplash.com/photo-1600948836101-f9ffda59d250?w=1800') center/cover}
+.hero-content{max-width:600px;color:white}
+.eyebrow{font-size:11px;letter-spacing:4px;color:var(--gold);margin-bottom:20px}
+h1,h2,h3{font-family:'Playfair Display',serif;font-weight:500}
+.hero h1{font-size:clamp(48px,7vw,82px);line-height:1.08;margin-bottom:23px}
+.hero p{line-height:1.9;color:#eee;margin-bottom:30px}
+section{padding:85px 8%}
+.heading{text-align:center;margin-bottom:42px}
+.heading h2{font-size:clamp(33px,5vw,48px);margin-bottom:12px}
+.heading p{font-size:14px;color:#888}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:23px}
+.card{background:white;border-radius:4px;overflow:hidden}
+.card img{width:100%;height:240px;object-fit:cover}
+.card-body{padding:23px}
+.card h3{font-size:25px;margin-bottom:10px}
+.card p{font-size:13px;color:#888;line-height:1.8;margin-bottom:16px}
+.price{color:var(--gold);font-weight:600;font-size:14px}
+.about{background:var(--cream);display:grid;grid-template-columns:1fr 1fr;gap:50px;align-items:center}
+.about img{width:100%;height:420px;object-fit:cover}
+.about h2{font-size:43px;margin-bottom:20px}
+.about p{color:#777;line-height:2;margin-bottom:20px}
+.rooms{background:#eee9df}
+.room{background:white;padding-bottom:20px}
+.room img{width:100%;height:230px;object-fit:cover}
+.room h3,.room p{margin:15px 18px 8px}
+.room p{font-size:13px;color:#888}
+.room input{margin-left:18px;accent-color:var(--olive)}
+.room label{font-size:13px}
+.masters .card{text-align:center;padding-bottom:22px}
+.masters img{height:290px}
+.masters .card p{margin-bottom:5px}
+.booking{background:var(--cream)}
+.booking-box{max-width:760px;margin:auto;padding:35px;background:white;border-radius:5px}
+.booking-box h2{text-align:center;font-size:36px;margin-bottom:25px}
+label{display:block;font-size:13px;margin:15px 0 7px}
+input,select{width:100%;padding:13px;border:1px solid #ddd;background:white;border-radius:3px}
+input:focus,select:focus{outline:1px solid var(--gold)}
+.times{display:flex;gap:9px;flex-wrap:wrap;margin-top:12px}
+.time{padding:10px 14px;border:1px solid var(--olive);background:white;color:var(--olive);border-radius:3px}
+.time.selected{background:var(--olive);color:white}
+.time.busy{background:#f5dddd;color:#a44;border-color:#e0baba;cursor:not-allowed}
+.booking-box .btn{width:100%;margin-top:22px}
+#message{text-align:center;margin-top:15px;font-size:13px;color:var(--olive)}
+.contact{text-align:center;background:var(--dark);color:white}
+.contact h2{font-size:43px;margin-bottom:15px}
+.contact p{color:#ccc;line-height:2;margin-bottom:20px}
+footer{background:#1d201c;color:#aaa;text-align:center;padding:35px}
+footer .logo{color:white;margin-bottom:15px}
+.admin{display:none;background:#eee9df}
+.admin-row{padding:17px;background:white;margin:10px 0;border-left:3px solid var(--gold);font-size:13px}
+.admin-row p{margin:7px 0;color:#777}
+.admin-row button{padding:7px 12px;background:#8c4545;color:white;border:0;border-radius:3px}
+@media(max-width:800px){
+ .links{display:none}.grid{grid-template-columns:1fr}
+ .about{grid-template-columns:1fr}
+ section{padding:60px 6%}
+ .hero{min-height:540px;padding:60px 7%}
+ .about img{height:290px}
+}
+</style>
+</head>
+<body>
+
+<nav>
+<a class="logo" href="#">BEMANI STUDIO<small>SALON DE BEAUTÉ</small></a>
+<div class="links">
+<a href="#services">Услуги</a>
+<a href="#rooms">Кабинеты</a>
+<a href="#masters">Мастера</a>
+<a href="#booking">Запись</a>
+<a href="#contact">Контакты</a>
+</div>
+<a class="btn" href="#booking">Записаться</a>
+</nav>
+
+<header class="hero">
+<div class="hero-content">
+<div class="eyebrow">BEAUTY · CARE · ELEGANCE</div>
+<h1>Твоя красота — наше искусство</h1>
+<p>Bemani Studio — пространство красоты, эстетики и заботы о себе. Открой для себя атмосферу комфорта и профессионального ухода.</p>
+<a class="btn" href="#services">Наши услуги</a>
+</div>
+</header>
+
+<section id="about" class="about">
+<div>
+<div class="eyebrow">WELCOME TO BEMANI</div>
+<h2>Красота в каждой детали</h2>
+<p>Мы создали уютное пространство, где каждый гость может выбрать свою процедуру, мастера и удобный кабинет.</p>
+<p>Наша цель — сделать посещение салона приятным, комфортным и удобным.</p>
+<a href="#booking" class="btn">Выбрать время</a>
+</div>
+<img src="https://images.unsplash.com/photo-1633681926022-84c23e8cb2d5?w=1000" alt="Интерьер салона">
+</section>
+
+<section id="services">
+<div class="heading">
+<div class="eyebrow">OUR SERVICES</div>
+<h2>Наши услуги</h2>
+<p>Профессиональный уход и красота</p>
+</div>
+<div class="grid">
+<div class="card">
+<img src="https://images.unsplash.com/photo-1562322140-8baeececf3df?w=800" alt="Уход за волосами">
+<div class="card-body"><h3>Уход за волосами</h3><p>Стрижка, укладка, окрашивание и восстановление волос.</p><span class="price">От 800 сом</span></div>
+</div>
+<div class="card">
+<img src="https://images.unsplash.com/photo-1610992015732-2449b76344bc?w=800" alt="Маникюр">
+<div class="card-body"><h3>Маникюр</h3><p>Уход за ногтями, покрытие и стильный дизайн.</p><span class="price">От 600 сом</span></div>
+</div>
+<div class="card">
+<img src="https://images.unsplash.com/photo-1516975080664-ed2fc6a32937?w=800" alt="Макияж">
+<div class="card-body"><h3>Макияж</h3><p>Дневной, вечерний и праздничный макияж.</p><span class="price">От 1200 сом</span></div>
+</div>
+<div class="card">
+<img src="https://images.unsplash.com/photo-1604654894610-df63bc536371?w=800" alt="Педикюр">
+<div class="card-body"><h3>Педикюр</h3><p>Уход за ногами, ногтями и эстетический педикюр.</p><span class="price">От 900 сом</span></div>
+</div>
+<div class="card">
+<img src="https://images.unsplash.com/photo-1512496015851-a90fb38ba796?w=800" alt="Брови">
+<div class="card-body"><h3>Брови и ресницы</h3><p>Коррекция, окрашивание и оформление взгляда.</p><span class="price">От 500 сом</span></div>
+</div>
+<div class="card">
+<img src="https://images.unsplash.com/photo-1547887538-e3a2f32cb1cc?w=800" alt="Уход за лицом">
+<div class="card-body"><h3>Уход за лицом</h3><p>Косметические процедуры и программы ухода.</p><span class="price">От 1500 сом</span></div>
+</div>
+</div>
+<p style="text-align:center;color:#999;font-size:11px;margin-top:22px">Цены указаны для демонстрации и могут быть изменены владельцем салона.</p>
+</section>
+
+<section id="rooms" class="rooms">
+<div class="heading">
+<div class="eyebrow">OUR SPACE</div>
+<h2>Выберите свой кабинет</h2>
+<p>Посмотрите фотографии и выберите удобное пространство</p>
+</div>
+<div class="grid">
+<div class="room">
+<img src="https://images.unsplash.com/photo-1600948836101-f9ffda59d250?w=800" alt="Кабинет красоты">
+<h3>Кабинет №1</h3><p>Зона ухода за волосами</p>
+<label><input type="radio" name="room" value="Кабинет №1" checked> Выбрать кабинет</label>
+</div>
+<div class="room">
+<img src="https://images.unsplash.com/photo-1610992015732-2449b76344bc?w=800" alt="Маникюрный кабинет">
+<h3>Кабинет №2</h3><p>Зона маникюра и педикюра</p>
+<label><input type="radio" name="room" value="Кабинет №2"> Выбрать кабинет</label>
+</div>
+<div class="room">
+<img src="https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=800" alt="Кабинет макияжа">
+<h3>Кабинет №3</h3><p>Зона макияжа и ухода</p>
+<label><input type="radio" name="room" value="Кабинет №3"> Выбрать кабинет</label>
+</div>
+</div>
+</section>
+
+<section id="masters" class="masters">
+<div class="heading">
+<div class="eyebrow">OUR TEAM</div>
+<h2>Наши мастера</h2>
+<p>Внимание к деталям и индивидуальный подход</p>
+</div>
+<div class="grid">
+<div class="card">
+<img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?w=700" alt="Мастер Анна">
+<div class="card-body"><h3>Анна</h3><p>Парикмахер-стилист</p><span class="price">★ 4.9 · 6 лет опыта</span></div>
+</div>
+<div class="card">
+<img src="https://images.unsplash.com/photo-1551836022-d5d88e9218df?w=700" alt="Мастер Мария">
+<div class="card-body"><h3>Мария</h3><p>Мастер маникюра</p><span class="price">★ 5.0 · 5 лет опыта</span></div>
+</div>
+<div class="card">
+<img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=700" alt="Мастер Елена">
+<div class="card-body"><h3>Елена</h3><p>Визажист и бровист</p><span class="price">★ 4.9 · 4 года опыта</span></div>
+</div>
+</div>
+<p style="text-align:center;color:#999;font-size:11px;margin-top:20px">Демонстрационные имена и профили. Замените их на данные реальных сотрудников.</p>
+</section>
+
+<section id="booking" class="booking">
+<div class="heading">
+<div class="eyebrow">ONLINE BOOKING</div>
+<h2>Запись на процедуру</h2>
+<p>Выберите услугу, мастера, кабинет и свободное время</p>
+</div>
+<div class="booking-box">
+<h2>Bemani Studio</h2>
+<form id="form">
+<label>Ваше имя</label>
+<input id="client" required placeholder="Введите имя">
+<label>Телефон</label>
+<input id="phone" type="tel" required placeholder="0556 010 021">
+<label>Услуга</label>
+<select id="service" required>
+<option value="">Выберите услугу</option>
+<option>Стрижка и укладка</option>
+<option>Окрашивание волос</option>
+<option>Маникюр</option>
+<option>Педикюр</option>
+<option>Макияж</option>
+<option>Брови и ресницы</option>
+<option>Уход за лицом</option>
+</select>
+<label>Мастер</label>
+<select id="master" required>
+<option value="">Выберите мастера</option>
+<option>Анна — парикмахер</option>
+<option>Мария — маникюр</option>
+<option>Елена — визажист</option>
+</select>
+<label>Дата</label>
+<input id="date" type="date" required>
+<label>Свободное время</label>
+<div class="times" id="times"></div>
+<label>Ваш кабинет</label>
+<select id="chosenRoom" required>
+<option>Кабинет №1</option>
+<option>Кабинет №2</option>
+<option>Кабинет №3</option>
+</select>
+<button class="btn" type="submit">Подтвердить запись</button>
+<div id="message"></div>
+</form>
+</div>
+</section>
+
+<section id="contact" class="contact">
+<div class="eyebrow">CONTACT US</div>
+<h2>Будем рады видеть вас</h2>
+<p>Телефон: 0556 010 021<br>Bemani Studio · Salon de Beauté<br>Ежедневно: 09:00–20:00</p>
+<a class="btn" target="_blank" href="https://wa.me/996556010021">Написать в WhatsApp</a>
+</section>
+
+<section class="admin" id="admin">
+<div class="heading"><h2>Панель администратора</h2><p>Заявки клиентов на этом устройстве</p></div>
+<div id="adminList"></div>
+<button class="btn" onclick="document.getElementById('admin').style.display='none'">Закрыть</button>
+</section>
+
+<footer>
+<div class="logo">BEMANI STUDIO<small>SALON DE BEAUTÉ</small></div>
+<p>Красота в каждой детали · © 2026 Bemani Studio</p>
+<p style="margin-top:15px"><button onclick="adminLogin()" style="background:none;border:0;color:#aaa">Вход для администратора</button></p>
+</footer>
+
+<script>
+const $=id=>document.getElementById(id);
+const today=new Date();
+const localDate=new Date(today.getTime()-today.getTimezoneOffset()*60000).toISOString().slice(0,10);
+$("date").min=localDate;
+
+function bookings(){
+ return JSON.parse(localStorage.getItem("bemaniSalonBookings")||"[]");
+}
+function saveBookings(data){
+ localStorage.setItem("bemaniSalonBookings",JSON.stringify(data));
+}
+let selectedTime="";
+
+function drawTimes(){
+ const date=$("date").value;
+ const room=document.querySelector('input[name="room"]:checked')?.value||$("chosenRoom").value;
+ $("chosenRoom").value=room;
+ $("times").innerHTML="";
+ selectedTime="";
+ const data=bookings();
+ if(!date)return;
+ ["09:00","10:00","11:00","12:00","13:00","14:00","15:00","16:00","17:00","18:00"].forEach(t=>{
+  const busy=data.some(b=>b.date===date&&b.time===t&&b.room===room);
+  const btn=document.createElement("button");
+  btn.type="button";
+  btn.className=busy?"time busy":"time";
+  btn.textContent=busy?"🔴 "+t+" Занято":"🟢 "+t;
+  btn.disabled=busy;
+  btn.onclick=()=>{
+   document.querySelectorAll(".time").forEach(x=>x.classList.remove("selected"));
+   btn.classList.add("selected");
+   selectedTime=t;
+  };
+  $("times").appendChild(btn);
+ });
+}
+$("date").addEventListener("change",drawTimes);
+$("chosenRoom").addEventListener("change",drawTimes);
+document.querySelectorAll('input[name="room"]').forEach(x=>x.addEventListener("change",drawTimes));
+
+$("form").addEventListener("submit",e=>{
+ e.preventDefault();
+ const room=$("chosenRoom").value;
+ const data=bookings();
+ if(!selectedTime){
+  $("message").textContent="Сначала выберите свободное время.";
+  return;
+ }
+ if(data.some(b=>b.date===$("date").value&&b.time===selectedTime&&b.room===room)){
+  $("message").textContent="Это время уже занято. Выберите другое.";
+  drawTimes();
+  return;
+ }
+ const b={
+  name:$("client").value,
+  phone:$("phone").value,
+  service:$("service").value,
+  master:$("master").value,
+  date:$("date").value,
+  time:selectedTime,
+  room:room
+ };
+ data.push(b);
+ saveBookings(data);
+ $("message").textContent="Заявка сохранена на этом устройстве. Для подтверждения отправьте сообщение в WhatsApp.";
+ const msg="Здравствуйте! Хочу записаться в Bemani Studio.%0AИмя: "+encodeURIComponent(b.name)+"%0AТелефон: "+encodeURIComponent(b.phone)+"%0AУслуга: "+encodeURIComponent(b.service)+"%0AМастер: "+encodeURIComponent(b.master)+"%0AКабинет: "+encodeURIComponent(b.room)+"%0AДата: "+b.date+"%0AВремя: "+b.time;
+ window.open("https://wa.me/996556010021?text="+msg,"_blank");
+ $("form").reset();
+ selectedTime="";
+ drawTimes();
+});
+
+function adminLogin(){
+ const p=prompt("Демо-пароль администратора:");
+ if(p!=="bemani2026"){
+  alert("Неверный пароль");
+  return;
+ }
+ const panel=$("admin");
+ panel.style.display="block";
+ const list=$("adminList");
+ list.innerHTML="";
+ const data=bookings();
+ if(!data.length)list.textContent="Пока нет записей.";
+ data.forEach((b,i)=>{
+  const row=document.createElement("div");
+  row.className="admin-row";
+  const title=document.createElement("strong");
+  title.textContent=(i+1)+". "+b.name+" — "+b.service;
+  const info=document.createElement("p");
+  info.textContent="Телефон: "+b.phone+" | Мастер: "+b.master+" | "+b.date+" | "+b.time+" | "+b.room;
+  const del=document.createElement("button");
+  del.textContent="Удалить заявку";
+  del.onclick=()=>{
+   if(confirm("Удалить эту заявку?")){
+    data.splice(i,1);
+    saveBookings(data);
+    adminLoginRefresh();
+   }
+  };
+  row.append(title,info,del);
+  list.appendChild(row);
+ });
+ panel.scrollIntoView();
+}
+function adminLoginRefresh(){
+ $("adminList").innerHTML="";
+ const data=bookings();
+ if(!data.length){$("adminList").textContent="Пока нет записей.";return;}
+ data.forEach((b,i)=>{
+  const row=document.createElement("div");
+  row.className="admin-row";
+  const t=document.createElement("strong");
+  t.textContent=(i+1)+". "+b.name+" — "+b.service;
+  const p=document.createElement("p");
+  p.textContent=b.phone+" | "+b.master+" | "+b.date+" | "+b.time+" | "+b.room;
+  const d=document.createElement("button");
+  d.textContent="Удалить заявку";
+  d.onclick=()=>{
+   if(confirm("Удалить?")){
+    const current=bookings();
+    current.splice(i,1);
+    saveBookings(current);
+    adminLoginRefresh();
+   }
+  };
+  row.append(t,p,d);
+  $("adminList").appendChild(row);
+ });
+}
+</script>
+</body>
+</html>
